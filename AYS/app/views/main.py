@@ -4,4 +4,4 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def main_content():
-    return render_template('test.html')
+    return render_template('privacy_policy.html')

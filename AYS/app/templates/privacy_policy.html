@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+
+{% block title %}Landing Page - Service Provider{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing_page_service_provider.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">AYS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+  </header>
+  
+  <main role="main">
+  
+    <div id="list-example" class="list-group">
+        <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+      </div>
+      <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+        <h4 id="list-item-1">Item 1</h4>
+        <p>Placeholder content for the scrollspy list-group example. This one relates to item 1. Don't need apologies. There is no fear now, let go and just be free, I will love you unconditionally. Last Friday night. Don't be a shy kinda guy I'll bet it's beautiful. Summer after high school when we first met. 'Cause she's the muse and the artist. What? Wait. Thought that I was the exception.</p>
+        <h4 id="list-item-2">Item 2</h4>
+        <p>Placeholder content for the scrollspy list-group example. This one relates to item 1. Don't need apologies. There is no fear now, let go and just be free, I will love you unconditionally. Last Friday night. Don't be a shy kinda guy I'll bet it's beautiful. Summer after high school when we first met. 'Cause she's the muse and the artist. What? Wait. Thought that I was the exception.</p>
+        <h4 id="list-item-3">Item 3</h4>
+        <p>Placeholder content for the scrollspy list-group example. This one relates to item 1. Don't need apologies. There is no fear now, let go and just be free, I will love you unconditionally. Last Friday night. Don't be a shy kinda guy I'll bet it's beautiful. Summer after high school when we first met. 'Cause she's the muse and the artist. What? Wait. Thought that I was the exception.</p>
+        <h4 id="list-item-4">Item 4</h4>
+        <p>Placeholder content for the scrollspy list-group example. This one relates to item 1. Don't need apologies. There is no fear now, let go and just be free, I will love you unconditionally. Last Friday night. Don't be a shy kinda guy I'll bet it's beautiful. Summer after high school when we first met. 'Cause she's the muse and the artist. What? Wait. Thought that I was the exception.</p>
+      </div>
+  </main>
+
+{% endblock %}
