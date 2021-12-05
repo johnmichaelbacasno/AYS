@@ -16,6 +16,9 @@ def create_app():
     bootstrap.init_app(app)
     csrf.init_app(app)
 
+    app.jinja_env.trim_blocks = True
+    app.jinja_env.lstrip_blocks = True
+
     with app.app_context():
         # Register blueprints
         app.register_blueprint(main)
