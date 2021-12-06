@@ -1,3 +1,21 @@
+body {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+  position: relative;
+}
+
+@media(min-width:576px) {
+  .side {
+    position: fixed;
+    right: 0;
+    top: 40%;
+    width: 25%;
+    max-width: 25%;
+    padding-left: 15px;
+  }
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -11,4 +29,4 @@
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
-  }
+}
