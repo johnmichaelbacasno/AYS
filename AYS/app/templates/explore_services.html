@@ -5,6 +5,13 @@
     {% block styles %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
+    <style>
+      body {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        color: #5a5a5a;
+      }
+    </style>
     {% endblock %}
 
     {% block scripts %}
@@ -16,7 +23,7 @@
     <script src="{{ url_for('static', filename='js/explore_services.js') }}"></script>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">AYS</a>
+      <a class="navbar-brand" href="#">At Your Service</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -133,49 +140,48 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col-12 col-lg-8 col-md-6">
-                  <h3 class="mb-0 text-truncated">%NAME%</h3>
-                  <p class="lead">Web / UI Designer</p>
-                  <p>
-                    I love to read, hang out with friends, watch football, listen to music, and learn new things.
-                  </p>
-                  <p>
-                    <span class="badge badge-info tags">html5</span>
-                    <span class="badge badge-info tags">css3</span>
-                    <span class="badge badge-info tags">nodejs</span>
-                  </p>
+                <div class="col-12">
+                  <h4 class="mb-0 text-truncated">%NAME%</h3>
+                  <p class="lead">Designer</p>
+                  <p><span class="fa fa-star"> <span class="fa fa-star"> <span class="fa fa-star"> <span class="fa fa-star"> <span class="fa fa-star"></span></p>
+                  <p><span class="badge badge-info tags">Basic</span> <span class="badge badge-info tags">Trusted</span></p>
+                  <p>I love to read, hang out with friends, watch football, listen to music, and learn new things.</p>
+                  <p><small>13 days ago</small></p>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">More info...</button>
                 </div>
-                <div class="col-12 col-lg-4 col-md-6 text-center">
-                  <img src="%IMAGE%" alt="" class="mx-auto rounded-circle img-fluid" style="height: 120px;">
-                  <br>
-                  <ul class="list-inline ratings text-center" title="Ratings">
-                    <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
-                    </li>
-                    <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
-                    </li>
-                    <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
-                    </li>
-                    <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
-                    </li>
-                    <li class="list-inline-item"><a href="#"><span class="fa fa-star"></span></a>
-                    </li>
-                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="container">
+                  <h3 class="modal-title" id="exampleModalLabel">Mark's Spa</h5>
                 </div>
-                <div class="col-12 col-lg-4">
-                  <h3 class="mb-0">%FOLLOWER%</h3>
-                  <small>Followers</small>
-                  <button class="btn btn-block btn-outline-success" title="Follow"><span class="fa fa-plus-circle"></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid py-3">
+                  <p><b>Service Category:</b> Beauty</p>
+                  <p><b>Service Type:</b> Cosmetics</p>
+                  <p><b>Description:</b></p>
+                  <p>Provides a positive customer experience with fair, friendly, and courteous service. Registers sales on a cash register by itemizing and totaling customers' purchases/orders. Resolves customer issues and answers questions dine in and online page.</p>
+                  <p><b>Schedule:</b> December 25, 2000</p>
+                  <p><b>Location:</b> Iligan City</p>
+                  <p><b>Amount:</b> ₱500.00</p>
                 </div>
-                <div class="col-12 col-lg-4">
-                  <h3 class="mb-0">%FOLLOWING%</h3>
-                  <small>Following</small>
-                  <button class="btn btn-outline-info btn-block" title="View Profile"><span class="fa fa-user"></span></button>
+                <div class="container-fluid">
+                  <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
                 </div>
-                <div class="col-12 col-lg-4">
-                  <h3 class="mb-0">%SNIPPETS%</h3>
-                  <small>Snippets</small>
-                  <button type="button" class="btn btn-outline-primary btn-block" title="Options"><span class="fa fa-cog"></span></button>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
