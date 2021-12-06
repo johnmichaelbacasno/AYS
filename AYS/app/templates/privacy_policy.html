@@ -3,7 +3,13 @@
 {% block title %}Privacy Policy{% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/privacy_policy.css') }}">
+<style>
+  body {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: #5a5a5a;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -11,7 +17,7 @@
 
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">AYS</a>
+    <a class="navbar-brand" href="#">At Your Service</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,12 +28,12 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Privacy Policy</h1>
-      <p>Last updated: December 25, 2021</p>
+      <p><b>Last updated:</b> December 25, 2021</p>
     </div>
   </div>
 </main>
 
-<div class="container" data-bs-spy="scroll" data-bs-target="#list-example">
+<div class="container pb-5" data-bs-spy="scroll" data-bs-target="#list-example">
   <div class="row">
     <div class="col-3">
       <div id="list-example" class="list-group">
@@ -46,7 +52,7 @@
       <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
         
         <h4 id="list-item-1">Introduction</h4>
-        <p>This website is operated by [school/Trust name] and whose registered address is [school/Trust address]. (“We”) are committed to protecting and preserving the privacy of our visitors when visiting our site or communicating electronically with us.</p>
+        <p>This website is operated by [school/Trust name] and whose registered address is [school/Trust address]. We are committed to protecting and preserving the privacy of our visitors when visiting our site or communicating electronically with us.</p>
         <p>This policy sets out how we process any personal data we collect from you or that you provide to us through our website. We confirm that we will keep your information secure and that we will comply fully with all applicable Data Protection legislation and regulations. Please read the following carefully to understand what happens to personal data that you choose to provide to us, or that we collect from you when you visit this site. By visiting this site, you are accepting and consenting to the practices described in this policy.</p>
         <hr/>
 
