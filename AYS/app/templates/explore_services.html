@@ -16,6 +16,7 @@
 
     {% block scripts %}
     <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/custom-view/bootstrap-table-custom-view.js"></script>
     {% endblock %}
 
@@ -116,15 +117,20 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container pb-5">
       <table
         id="table"
         data-search="true"
+        data-show-search-button="true"
+        data-show-search-clear-button="true"
+        data-advanced-search="true"
+        data-strict-search="true"
+        data-id-table="advancedTable"
+        data-show-refresh="true"
         data-pagination="true"
         data-page-size="6"
         data-show-custom-view="true"
-        data-custom-view="customViewFormatter"
-        data-show-custom-view-button="true">
+        data-custom-view="customViewFormatter">
         <thead>
           <tr>
             <th data-field="name">Name</th>
@@ -147,13 +153,14 @@
                   <p><span class="badge badge-info tags">Basic</span> <span class="badge badge-info tags">Trusted</span></p>
                   <p>I love to read, hang out with friends, watch football, listen to music, and learn new things.</p>
                   <p><small>13 days ago</small></p>
+                  <button class="btn btn-primary"><i class="far fa-heart"></i></button>
                   <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">More info...</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -161,6 +168,7 @@
               <div class="modal-header">
                 <div class="container">
                   <h3 class="modal-title" id="exampleModalLabel">Mark's Spa</h5>
+                  <p class="lead">Designer</p>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -187,6 +195,5 @@
           </div>
         </div>
       </template>
-      <hr/>
     </div>
     {% endblock %}
