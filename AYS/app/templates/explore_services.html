@@ -24,23 +24,7 @@
     <script>
       $(function() {
         $('#table').bootstrapTable({
-          data: [
-            {
-              'service_id': 0,
-              'service_title': 'Marks Spa',
-              'service_description': 'I love to read, hang out with friends, watch football, listen to music, and learn new things.',
-              'service_user_id': 0,
-              'service_user_rating': 5,
-              'service_user_level': 1,
-              'service_user_is_trusted': true,
-              'service_date_posted': '2021-12-25',
-              'service_schedule': '2021-12-25',
-              'service_location': 'Iligan City',
-              'service_type': 'Beauty',
-              'service_category': 'Spa and Salon',
-              'service_amount': 500
-            }
-          ]
+          data: JSON.parse('{{ services | tojson | safe}}')
         })
       })
 
@@ -62,23 +46,42 @@
             trusted = '';
           }
 
-          view += template.replace('%TITLE%', row.service_title)
-            .replace('%DESCRIPTION%', row.service_description)
-            .replace('%USER_ID%', row.service_user_id)
-            .replace('%USER_RATING%', stars)
-            .replace('%USER_LEVEL%', row.service_user_level)
-            .replace('%USER_IS_TRUSTED%', trusted)
-            .replace('%DATE_POSTED%', row.service_date_posted)
-            .replace('%SCHEDULE%', row.service_schedule)
-            .replace('%LOCATION%', row.service_location)
-            .replace('%TYPE%', row.service_type)
-            .replace('%CATEGORY%', row.service_category)
-            .replace('%AMOUNT%', row.service_amount)
-            .replace('%MODAL_TITLE%', row.service_title)
-            .replace('%MODAL_DESCRIPTION%', row.service_description)
-            .replace('%MODAL_USER_ID%', row.service_user_id);
-        })
+          var level = ''
+          switch (row.service_user_level) {
+            case 1:
+              level = '<span class="badge badge-info tags">Basic</span>';
+              break;
+            case 2:
+              level = '<span class="badge badge-info tags">Semi</span>';
+              break;
+            case 3:
+              level = '<span class="badge badge-info tags">Full</span>';
+              break;
+          }
 
+          var month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+          
+          var date_posted = new Date(row.service_date_posted);
+          date_posted = month[date_posted.getMonth()+1] + ' ' + date_posted.getDate() + ', ' + date_posted.getFullYear();
+          
+          var schedule = new Date(row.service_schedule);
+          schedule = month[schedule.getMonth()+1] + ' ' + schedule.getDate() + ', ' + schedule.getFullYear();
+          
+          view += template
+            .replaceAll('%TITLE%', row.service_title)
+            .replaceAll('%DESCRIPTION%', row.service_description)
+            .replaceAll('%USER_ID%', row.service_user_id)
+            .replaceAll('%USER_RATING%', stars)
+            .replaceAll('%USER_LEVEL%', level)
+            .replaceAll('%USER_IS_TRUSTED%', trusted)
+            .replaceAll('%DATE_POSTED%', date_posted)
+            .replaceAll('%SCHEDULE%', schedule)
+            .replaceAll('%LOCATION%', row.service_location)
+            .replaceAll('%TYPE%', row.service_type)
+            .replaceAll('%CATEGORY%', row.service_category)
+            .replaceAll('%AMOUNT%', row.service_amount);
+        })
+        
         return `<div class="row mx-0">${view}</div>`;
       }
     </script>
@@ -122,63 +125,25 @@
         <div class="container">
           <h1 class="display-3">Explore Services</h1>
           <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
         </div>
       </div>
     </main>
 
     <div class="jumbotron">
-      <div class="container marketing">
-          <p>What services do you need?</p>
+      <div class="container">
+          <p class="lead">Featured Service Categories</p>
 
           <div class="row">
+            
             <div class="col-sm-2">
-              <div class="row justify-content-center">
+              <div class="row justify-content-center py-3">
                 <svg class="bd-placeholder-img rounded-circle " width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
               </div>
-              <p class="text-center">Academic Tutorials</p>
+              <p class="text-center">Sample Category</p>
             </div>
-
-            <div class="col-sm-2">
-              <div class="row justify-content-center">
-                <svg class="bd-placeholder-img rounded-circle " width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-              </div>
-              <p class="text-center">Academic Tutorials</p>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="row justify-content-center">
-                <svg class="bd-placeholder-img rounded-circle " width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-              </div>
-              <p class="text-center">Academic Tutorials</p>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="row justify-content-center">
-                <svg class="bd-placeholder-img rounded-circle " width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-              </div>
-              <p class="text-center">Academic Tutorials</p>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="row justify-content-center">
-                <svg class="bd-placeholder-img rounded-circle " width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-              </div>
-              <p class="text-center">Academic Tutorials</p>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="row justify-content-center">
-                <svg class="bd-placeholder-img rounded-circle " width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-              </div>
-              <p class="text-center">Academic Tutorials</p>
-            </div>
+            
           </div>
       </div>
-    </div>
-
-    <div>
-    <p>{{ services }}</p>
     </div>
 
     <div class="container pb-5">
@@ -216,18 +181,26 @@
       </table>
 
       <template id="profileTemplate">
+        <!-- Card -->
         <div class="col-4 mt-3">
           <div class="card">
             <div class="card-body">
               <div class="row">
                 <div class="col-12">
-                  <h4 class="mb-0 text-truncated">%TITLE%</h3>
-                  <p class="lead">%USER_ID%</p>
+                  <div class="row align-items-center">
+                    <div class="col-3">
+                      <img src="..." class="rounded-circle" height="75" width="75" alt="Service">
+                    </div>
+                    <div class="col-8 mx-2">
+                      <h3 class="modal-title" id="exampleModalLabel">%TITLE%</h5>
+                      <p class="lead">%USER_ID%</p>
+                    </div>
+                  </div>
                   <p>%USER_RATING%</p>
-                  <p><span class="badge badge-info tags">%USER_LEVEL%</span> <span class="badge badge-info tags">%USER_IS_TRUSTED%</span></p>
+                  <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
                   <p>%DESCRIPTION%</p>
                   <p><small>%DATE_POSTED%</small></p>
-                  <button class="btn btn-primary"><i class="far fa-heart"></i></button>
+                  <button class="btn btn-secondary"><i class="far fa-heart"></i></button>
                   <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">More info...</button>
                 </div>
               </div>
@@ -241,8 +214,17 @@
             <div class="modal-content">
               <div class="modal-header">
                 <div class="container">
-                  <h3 class="modal-title" id="exampleModalLabel">%MODAL_TITLE%</h5>
-                  <p class="lead">%MODAL_USER_ID%</p>
+                  <div class="row">
+                    <div class="col-3">
+                      <img src="..." class="rounded-circle" height="75" width="75" alt="Service">
+                    </div>
+                    <div class="col">
+                      <h3 class="modal-title" id="exampleModalLabel">%TITLE%</h5>
+                      <p class="lead">%USER_ID%</p>
+                      <p>%USER_RATING%</p>
+                      <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
+                    </div>
+                  </div>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -253,7 +235,7 @@
                   <p><b>Service Category:</b> %CATEGORY%</p>
                   <p><b>Service Type:</b> %TYPE%</p>
                   <p><b>Description:</b></p>
-                  <p>%MODAL_DESCRIPTION%</p>
+                  <p>%DESCRIPTION%</p>
                   <p><b>Schedule:</b> %SCHEDULE%</p>
                   <p><b>Location:</b> %LOCATION%</p>
                   <p><b>Amount:</b> ₱%AMOUNT%</p>
