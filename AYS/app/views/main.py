@@ -20,6 +20,17 @@ def all_services():
     conn.close()
     return services
 
+def all_service_categories():
+    conn = db.connect()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("""
+        SELECT * FROM `ServiceCategory`;
+    """)
+    service_categories = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return service_categories
+
 @main.route('/')
 def main_content():
-    return render_template('explore_services.html', services=all_services())
+    return render_template('explore_services.html', services=all_services(), service_categories=all_service_categories())
