@@ -6,10 +6,11 @@ CREATE TABLE `User`
 (
     `user_id` INT NOT NULL AUTO_INCREMENT,
     `user_name` VARCHAR(100) NOT NULL,
+    `user_account_type` VARCHAR(2) NOT NULL,
     `user_rating` INT NOT NULL,
     `user_level` INT NOT NULL,
     `user_is_trusted` BOOLEAN,
-
+    
     PRIMARY KEY (`user_id`)
 );
 
@@ -48,8 +49,8 @@ CREATE TABLE `Service`
     FOREIGN KEY (`service_type`) REFERENCES `ServiceType` (`service_type_id`)
 );
 
-INSERT INTO `User` (`user_name`, `user_rating`, `user_level`, `user_is_trusted`)
-VALUES ('Aoi Suzuki', 5, 1, true);
+INSERT INTO `User` (`user_name`, `user_account_type`, `user_rating`, `user_level`, `user_is_trusted`)
+VALUES ('Aoi Suzuki', 'SP', 5, 1, true);
 
 INSERT INTO `ServiceCategory` (`service_category_name`)
 VALUES ('Education');
