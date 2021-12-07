@@ -70,7 +70,7 @@
           view += template
             .replaceAll('%TITLE%', row.service_title)
             .replaceAll('%DESCRIPTION%', row.service_description)
-            .replaceAll('%USER_ID%', row.service_user_id)
+            .replaceAll('%USER%', row.service_user)
             .replaceAll('%USER_RATING%', stars)
             .replaceAll('%USER_LEVEL%', level)
             .replaceAll('%USER_IS_TRUSTED%', trusted)
@@ -169,7 +169,7 @@
             <th data-field="service_id">Service ID</th>
             <th data-field="service_title">Service Title</th>
             <th data-field="service_description">Service Description</th>
-            <th data-field="service_user_id">Service User ID</th>
+            <th data-field="service_user">Service User</th>
             <th data-field="service_user_rating">Service User Rating</th>
             <th data-field="service_user_level">Service User Level</th>
             <th data-field="service_user_is_trusted">Service User Is Trusted</th>
@@ -196,7 +196,7 @@
                     </div>
                     <div class="col-8 mx-2">
                       <h4 class="modal-title" id="exampleModalLabel">%TITLE%</h4>
-                      <p class="lead">%USER_ID%</p>
+                      <p class="lead">%USER%</p>
                     </div>
                   </div>
                   <p>%USER_RATING%</p>
@@ -223,7 +223,7 @@
                     </div>
                     <div class="col">
                       <h3 class="modal-title" id="exampleModalLabel">%TITLE%</h5>
-                      <p class="lead">%USER_ID%</p>
+                      <p class="lead">%USER%</p>
                       <p>%USER_RATING%</p>
                       <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
                     </div>
