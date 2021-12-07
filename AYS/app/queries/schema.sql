@@ -4,13 +4,32 @@ USE `AYS`;
 
 CREATE TABLE `User`
 (
-    `user_id` INT NOT NULL AUTO_INCREMENT,
-    `user_name` VARCHAR(100) NOT NULL,
+    `user_id` VARCHAR(100) NOT NULL,
+    `user_password` VARCHAR(100) NOT NULL,
     `user_account_type` VARCHAR(2) NOT NULL,
-    `user_rating` INT NOT NULL,
-    `user_level` INT NOT NULL,
-    `user_is_trusted` BOOLEAN,
     
+    `user_rating` INT NULL,
+    `user_level` INT NULL,
+    `user_is_trusted` BOOLEAN NULL,
+
+    `user_first_name` VARCHAR(255) NULL,
+    `user_middle_name` VARCHAR(255) NULL,
+    `user_last_name` VARCHAR(255) NULL,
+    `user_address_zip_code` INT NULL,
+    `user_address_street` VARCHAR(255) NULL,
+    `user_address_barangay` VARCHAR(255) NULL,
+    `user_address_city` VARCHAR(100) NULL,
+    `user_address_province` VARCHAR(100) NULL,
+    `user_address_country` VARCHAR(100) NULL,
+    `user_profile_description` TEXT NULL,
+    `user_profile_picture` VARCHAR(255) NULL,
+    `user_sex` VARCHAR(6) NULL,
+    `user_education` VARCHAR(255) NULL,
+    `user_birthdate` DATE NULL,
+
+    `user_email_address` VARCHAR(100) NULL,
+    `user_phone_number` VARCHAR(15) NULL,
+
     PRIMARY KEY (`user_id`)
 );
 
@@ -37,7 +56,7 @@ CREATE TABLE `Service`
     `service_id` INT NOT NULL AUTO_INCREMENT,
     `service_title` VARCHAR(100) NOT NULL,
     `service_description` TEXT NOT NULL,
-    `service_user` INT NOT NULL,
+    `service_user` VARCHAR(100) NOT NULL,
     `service_date_posted` DATE NOT NULL,
     `service_schedule` DATE NOT NULL,
     `service_location` VARCHAR(100) NOT NULL,
@@ -49,8 +68,8 @@ CREATE TABLE `Service`
     FOREIGN KEY (`service_type`) REFERENCES `ServiceType` (`service_type_id`)
 );
 
-INSERT INTO `User` (`user_name`, `user_account_type`, `user_rating`, `user_level`, `user_is_trusted`)
-VALUES ('Aoi Suzuki', 'SP', 5, 1, true);
+INSERT INTO `User` (`user_id`, `user_password`, `user_account_type`, `user_rating`, `user_level`, `user_is_trusted`, `user_first_name`, `user_middle_name`, `user_last_name`)
+VALUES ('aoi_suzuki', '1234', 'SP', 3, 1, true, 'Aoi', '', 'Suzuki');
 
 INSERT INTO `ServiceCategory` (`service_category_name`)
 VALUES ('Education');
@@ -59,4 +78,4 @@ INSERT INTO `ServiceType` (`service_type_name`, `service_category`)
 VALUES ('Class', 1);
 
 INSERT INTO `Service` (`service_title`, `service_description`, `service_user`, `service_date_posted`, `service_schedule`, `service_location`, `service_type`, `service_amount`)
-VALUES ('Aoi no Zen Garden', 'This is a free Japanese class tutorial for beginners!', 1, '2000-12-20', '2000-12-25', 'Tokyo Japan', 1, 0.00);
+VALUES ('Aoi no Zen Garden', 'This is a free Japanese class tutorial for beginners!', 'aoi_suzuki', '2000-12-20', '2000-12-25', 'Tokyo Japan', 1, 1.99);

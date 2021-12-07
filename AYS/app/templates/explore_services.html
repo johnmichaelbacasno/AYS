@@ -34,8 +34,14 @@
 
         $.each(data, function (i, row) {
           var stars = ''
-          for (i = 0; i < row.service_user_rating; i++) {
-            stars += '<span class="fa fa-star"></span> ';
+          for (i = 0; i < 5; i++) {
+
+            if (i < row.service_user_rating) {
+              stars += '<span class="fa fa-star" style="color:#EFFD5F"></span> ';
+            }
+            else {
+              stars += '<span class="fa fa-star" style="color:grey"></span> ';
+            }
           }
 
           var trusted = ''
@@ -71,6 +77,9 @@
             .replaceAll('%TITLE%', row.service_title)
             .replaceAll('%DESCRIPTION%', row.service_description)
             .replaceAll('%USER%', row.service_user)
+            .replaceAll('%USER_FIRST_NAME%', row.service_user_first_name)
+            .replaceAll('%USER_MIDDLE_NAME%', row.service_user_middle_name)
+            .replaceAll('%USER_LAST_NAME%', row.service_user_last_name)
             .replaceAll('%USER_RATING%', stars)
             .replaceAll('%USER_LEVEL%', level)
             .replaceAll('%USER_IS_TRUSTED%', trusted)
@@ -187,6 +196,9 @@
             <th data-field="service_title">Service Title</th>
             <th data-field="service_description">Service Description</th>
             <th data-field="service_user">Service User</th>
+            <th data-field="service_user_first_name">Service User First Name</th>
+            <th data-field="service_user_middle_name">Service User Middle Name</th>
+            <th data-field="service_user_last_name">Service User Last Name</th>
             <th data-field="service_user_rating">Service User Rating</th>
             <th data-field="service_user_level">Service User Level</th>
             <th data-field="service_user_is_trusted">Service User Is Trusted</th>
@@ -252,6 +264,8 @@
               </div>
               <div class="modal-body">
                 <div class="container-fluid py-3">
+                  <p><b>Service Provider:</b> %USER_FIRST_NAME% %USER_MIDDLE_NAME% %USER_LAST_NAME%</p>
+                  <p></p>
                   <p><b>Service Category:</b> %CATEGORY%</p>
                   <p><b>Service Type:</b> %TYPE%</p>
                   <p><b>Description:</b></p>

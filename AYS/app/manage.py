@@ -6,7 +6,21 @@ def all_services():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-        SELECT Service.service_title, Service.service_description, User.user_name AS service_user, User.user_rating AS service_user_rating, User.user_level as service_user_level, User.user_is_trusted AS service_user_is_trusted, Service.service_date_posted, Service.service_schedule, Service.service_location, ServiceType.service_type_name AS service_type, ServiceCategory.service_category_name AS service_category, Service.service_amount
+        SELECT Service.service_title,
+               Service.service_description,
+               User.user_id AS service_user,
+               User.user_first_name AS service_user_first_name,
+               User.user_middle_name AS service_user_middle_name,
+               User.user_last_name AS service_user_last_name,
+               User.user_rating AS service_user_rating,
+               User.user_level as service_user_level,
+               User.user_is_trusted AS service_user_is_trusted,
+               Service.service_date_posted,
+               Service.service_schedule,
+               Service.service_location,
+               ServiceType.service_type_name AS service_type,
+               ServiceCategory.service_category_name AS service_category,
+               Service.service_amount
         FROM `Service`
         JOIN `User` ON Service.service_user = User.user_id
         JOIN `ServiceType` ON Service.service_type = ServiceType.service_type_id
@@ -54,7 +68,21 @@ def featured_services():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-        SELECT Service.service_title, Service.service_description, User.user_name AS service_user, User.user_rating AS service_user_rating, User.user_level as service_user_level, User.user_is_trusted AS service_user_is_trusted, Service.service_date_posted, Service.service_schedule, Service.service_location, ServiceType.service_type_name AS service_type, ServiceCategory.service_category_name AS service_category, Service.service_amount
+        SELECT Service.service_title,
+               Service.service_description,
+               User.user_id AS service_user,
+               User.user_first_name AS service_user_first_name,
+               User.user_middle_name AS service_user_middle_name,
+               User.user_last_name AS service_user_last_name,
+               User.user_rating AS service_user_rating,
+               User.user_level as service_user_level,
+               User.user_is_trusted AS service_user_is_trusted,
+               Service.service_date_posted,
+               Service.service_schedule,
+               Service.service_location,
+               ServiceType.service_type_name AS service_type,
+               ServiceCategory.service_category_name AS service_category,
+               Service.service_amount
         FROM `Service`
         JOIN `User` ON Service.service_user = User.user_id
         JOIN `ServiceType` ON Service.service_type = ServiceType.service_type_id
