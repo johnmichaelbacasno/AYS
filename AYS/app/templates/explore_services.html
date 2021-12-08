@@ -36,7 +36,7 @@
           var stars = ''
           for (i = 0; i < 5; i++) {
 
-            if (i < row.service_user_rating) {
+            if (i < row.service_post_user_rating) {
               stars += '<span class="fa fa-star" style="color:#EFFD5F"></span> ';
             }
             else {
@@ -45,7 +45,7 @@
           }
 
           var trusted = ''
-          if (row.service_user_is_trusted) {
+          if (row.service_post_user_is_trusted) {
             trusted = '<span class="badge badge-info tags">Trusted</span>';
           }
           else {
@@ -53,7 +53,7 @@
           }
 
           var level = ''
-          switch (row.service_user_level) {
+          switch (row.service_post_user_level) {
             case 1:
               level = '<span class="badge badge-info tags">Basic</span>';
               break;
@@ -67,28 +67,28 @@
 
           var month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
           
-          var date_posted = new Date(row.service_date_posted);
+          var date_posted = new Date(row.service_post_date_posted);
           date_posted = month[date_posted.getMonth()+1] + ' ' + date_posted.getDate() + ', ' + date_posted.getFullYear();
           
-          var schedule = new Date(row.service_schedule);
+          var schedule = new Date(row.service_post_schedule);
           schedule = month[schedule.getMonth()+1] + ' ' + schedule.getDate() + ', ' + schedule.getFullYear();
           
           view += template
-            .replaceAll('%TITLE%', row.service_title)
-            .replaceAll('%DESCRIPTION%', row.service_description)
-            .replaceAll('%USER%', row.service_user)
-            .replaceAll('%USER_FIRST_NAME%', row.service_user_first_name)
-            .replaceAll('%USER_MIDDLE_NAME%', row.service_user_middle_name)
-            .replaceAll('%USER_LAST_NAME%', row.service_user_last_name)
+            .replaceAll('%TITLE%', row.service_post_title)
+            .replaceAll('%DESCRIPTION%', row.service_post_description)
+            .replaceAll('%USER%', row.service_post_user)
+            .replaceAll('%USER_FIRST_NAME%', row.service_post_user_first_name)
+            .replaceAll('%USER_MIDDLE_NAME%', row.service_post_user_middle_name)
+            .replaceAll('%USER_LAST_NAME%', row.service_post_user_last_name)
             .replaceAll('%USER_RATING%', stars)
             .replaceAll('%USER_LEVEL%', level)
             .replaceAll('%USER_IS_TRUSTED%', trusted)
             .replaceAll('%DATE_POSTED%', date_posted)
             .replaceAll('%SCHEDULE%', schedule)
             .replaceAll('%LOCATION%', row.service_location)
-            .replaceAll('%TYPE%', row.service_type)
-            .replaceAll('%CATEGORY%', row.service_category)
-            .replaceAll('%AMOUNT%', row.service_amount);
+            .replaceAll('%TYPE%', row.service_post_type)
+            .replaceAll('%CATEGORY%', row.service_post_category)
+            .replaceAll('%AMOUNT%', row.service_post_amount);
         })
         
         return `<div class="row mx-0">${view}</div>`;
@@ -143,12 +143,12 @@
           <p class="lead">Featured Service Categories</p>
 
           <div class="row">
-            {% for service_category in featured_service_categories %}
+            {% for service_post_category in featured_service_categories %}
             <div class="col-sm-2">
               <div class="row justify-content-center py-3">
                 <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Category">
               </div>
-              <p class="text-center">{{ service_category["service_category_name"] }}</p>
+              <p class="text-center">{{ service_post_category["service_post_category_name"] }}</p>
             </div>
             {% endfor %}
           </div>
@@ -167,6 +167,88 @@
               </div>
               <p class="text-center">{{ featured_service_provider["user_name"] }}</p>
             </div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+
+    <div class="jumbotron">
+      <div class="container">
+          <p class="lead">Featured Service Posts</p>
+
+          <div class="row">
+            {% for service_post in featured_service_posts %}
+          <!-- Card -->
+          <div class="col-4 mt-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row justify-content-center py-3">
+                      <div class="col-3 px-2">
+                        <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+                      </div>
+                      <div class="col-8 mx-2">
+                        <h4 class="modal-title" id="exampleModalLabel">{{ service_post["service_post_title"] }}</h4>
+                        <p class="lead">%USER%</p>
+                      </div>
+                    </div>
+                    <p>%USER_RATING%</p>
+                    <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
+                    <p>%DESCRIPTION%</p>
+                    <p><small>Posted on %DATE_POSTED%</small></p>
+                    <button class="btn btn-secondary"><i class="far fa-heart"></i></button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal_view_{{ service_post["service_post_id"] }}">More info...</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="modal_view_{{ service_post["service_post_id"] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-3">
+                        <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+                      </div>
+                      <div class="col">
+                        <h3 class="modal-title" id="#modal_view_{{ service_post["service_post_id"] }}">{{ service_post["service_post_title"] }}</h5>
+                        <p class="lead">%USER%</p>
+                        <p>%USER_RATING%</p>
+                        <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid py-3">
+                    <p><b>Service Provider:</b> %USER_FIRST_NAME% %USER_MIDDLE_NAME% %USER_LAST_NAME%</p>
+                    <p></p>
+                    <p><b>Service Category:</b> %CATEGORY%</p>
+                    <p><b>Service Type:</b> %TYPE%</p>
+                    <p><b>Description:</b></p>
+                    <p>%DESCRIPTION%</p>
+                    <p><b>Schedule:</b> %SCHEDULE%</p>
+                    <p><b>Location:</b> %LOCATION%</p>
+                    <p><b>Amount:</b> ₱%AMOUNT%</p>
+                  </div>
+                  <div class="container-fluid">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
             {% endfor %}
           </div>
       </div>
@@ -192,22 +274,22 @@
         data-custom-view="customViewFormatter">
         <thead>
           <tr>
-            <th data-field="service_id">Service ID</th>
-            <th data-field="service_title">Service Title</th>
-            <th data-field="service_description">Service Description</th>
-            <th data-field="service_user">Service User</th>
-            <th data-field="service_user_first_name">Service User First Name</th>
-            <th data-field="service_user_middle_name">Service User Middle Name</th>
-            <th data-field="service_user_last_name">Service User Last Name</th>
-            <th data-field="service_user_rating">Service User Rating</th>
-            <th data-field="service_user_level">Service User Level</th>
-            <th data-field="service_user_is_trusted">Service User Is Trusted</th>
-            <th data-field="service_date_posted">Service Date Posted</th>
-            <th data-field="service_schedule">Service Schedule</th>
-            <th data-field="service_location">Service Location</th>
-            <th data-field="service_type">Service Type</th>
-            <th data-field="service_category">Service Category</th>
-            <th data-field="service_amount">Service Amount</th>
+            <th data-field="service_post_id">Service ID</th>
+            <th data-field="service_post_title">Service Title</th>
+            <th data-field="service_post_description">Service Description</th>
+            <th data-field="service_post_user">Service User</th>
+            <th data-field="service_post_user_first_name">Service User First Name</th>
+            <th data-field="service_post_user_middle_name">Service User Middle Name</th>
+            <th data-field="service_post_user_last_name">Service User Last Name</th>
+            <th data-field="service_post_user_rating">Service User Rating</th>
+            <th data-field="service_post_user_level">Service User Level</th>
+            <th data-field="service_post_user_is_trusted">Service User Is Trusted</th>
+            <th data-field="service_post_date_posted">Service Date Posted</th>
+            <th data-field="service_post_schedule">Service Schedule</th>
+            <th data-field="service_post_location">Service Location</th>
+            <th data-field="service_post_type">Service Type</th>
+            <th data-field="service_post_category">Service Category</th>
+            <th data-field="service_post_amount">Service Amount</th>
           </tr>
       </thead>
       </table>
@@ -239,7 +321,7 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">

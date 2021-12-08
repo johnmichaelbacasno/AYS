@@ -51,21 +51,21 @@ CREATE TABLE `ServiceType`
     FOREIGN KEY (`service_category`) REFERENCES `ServiceCategory` (`service_category_id`)
 );
 
-CREATE TABLE `Service`
+CREATE TABLE `ServicePost`
 (
-    `service_id` INT NOT NULL AUTO_INCREMENT,
-    `service_title` VARCHAR(100) NOT NULL,
-    `service_description` TEXT NOT NULL,
-    `service_user` VARCHAR(100) NOT NULL,
-    `service_date_posted` DATE NOT NULL,
-    `service_schedule` DATE NOT NULL,
-    `service_location` VARCHAR(100) NOT NULL,
-    `service_type` INT NOT NULL,
-    `service_amount` FLOAT(20, 2) NOT NULL,
+    `service_post_id` INT NOT NULL AUTO_INCREMENT,
+    `service_post_title` VARCHAR(100) NOT NULL,
+    `service_post_description` TEXT NOT NULL,
+    `service_post_user` VARCHAR(100) NOT NULL,
+    `service_post_date_posted` DATE NOT NULL,
+    `service_post_schedule` DATE NOT NULL,
+    `service_post_location` VARCHAR(100) NOT NULL,
+    `service_post_type` INT NOT NULL,
+    `service_post_amount` FLOAT(20, 2) NOT NULL,
 
-    PRIMARY KEY (`service_id`),
-    FOREIGN KEY (`service_user`) REFERENCES `User` (`user_id`),
-    FOREIGN KEY (`service_type`) REFERENCES `ServiceType` (`service_type_id`)
+    PRIMARY KEY (`service_post_id`),
+    FOREIGN KEY (`service_post_user`) REFERENCES `User` (`user_id`),
+    FOREIGN KEY (`service_post_type`) REFERENCES `ServiceType` (`service_type_id`)
 );
 
 INSERT INTO `User` (`user_id`, `user_password`, `user_account_type`, `user_rating`, `user_level`, `user_is_trusted`, `user_first_name`, `user_middle_name`, `user_last_name`)
@@ -77,5 +77,5 @@ VALUES ('Education');
 INSERT INTO `ServiceType` (`service_type_name`, `service_category`)
 VALUES ('Class', 1);
 
-INSERT INTO `Service` (`service_title`, `service_description`, `service_user`, `service_date_posted`, `service_schedule`, `service_location`, `service_type`, `service_amount`)
+INSERT INTO `ServicePost` (`service_post_title`, `service_post_description`, `service_post_user`, `service_post_date_posted`, `service_post_schedule`, `service_post_location`, `service_post_type`, `service_post_amount`)
 VALUES ('Aoi no Zen Garden', 'This is a free Japanese class tutorial for beginners!', 'aoi_suzuki', '2000-12-20', '2000-12-25', 'Tokyo Japan', 1, 1.99);
