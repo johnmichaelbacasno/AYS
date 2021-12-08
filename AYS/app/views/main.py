@@ -13,9 +13,11 @@ def explore_services():
         featured_service_providers=featured_service_providers()
     )
 
-@main.route('/')
 @main.route('/landing_page_service_provider')
 def landing_page_service_provider():
-    return render_template(
-        'landing_page_service_provider.html'
-    )
+    return render_template('landing_page_service_provider.html')
+
+@main.route('/')
+@main.route('/landing_page_client')
+def landing_page_client():
+    return render_template('landing_page_client.html')
