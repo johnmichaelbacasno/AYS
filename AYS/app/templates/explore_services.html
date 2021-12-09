@@ -29,7 +29,7 @@
       })
 
       function customViewFormatter (data) {
-        var template = $('#profileTemplate').html();
+        var template = $('#servicePostTemplate').html();
         var view = '';
 
         $.each(data, function (i, row) {
@@ -144,18 +144,18 @@
           <p class="lead">Featured Service Categories</p>
 
           <div class="row">
-            {% for service_post_category in featured_service_categories %}
+            {% for service_category in featured_service_categories %}
             <div class="col-sm-2">
               <div class="row justify-content-center py-3">
                 <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Category">
               </div>
-              <p class="text-center">{{ service_post_category["service_post_category_name"] }}</p>
+              <p class="text-center">{{ service_category["service_category_name"] }}</p>
             </div>
             {% endfor %}
           </div>
       </div>
     </div>
-
+    
     <div class="jumbotron">
       <div class="container">
           <p class="lead">Featured Service Providers</p>
@@ -166,7 +166,8 @@
               <div class="row justify-content-center py-3">
                 <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Category">
               </div>
-              <p class="text-center">{{ featured_service_provider["user_name"] }}</p>
+              <p class=" lead text-center">{{ featured_service_provider["user_first_name"] }} {{ featured_service_provider["user_middle_name"] }} {{ featured_service_provider["user_last_name"] }}</p>
+              <p class="text-center"><i>{{ featured_service_provider["user_id"] }}</i></p>
             </div>
             {% endfor %}
           </div>
@@ -187,10 +188,10 @@
                     <div class="col-12">
                       <div class="row justify-content-center py-3">
                         <div class="col-3 px-2">
-                          <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+                          <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Post Image">
                         </div>
                         <div class="col-8 mx-2">
-                          <h4 class="modal-title" id="exampleModalLabel">{{ service_post["service_post_title"] }}</h4>
+                          <h4>{{ service_post["service_post_title"] }}</h4>
                           <p class="lead">{{ service_post["service_post_user_first_name"] }} {{ service_post["service_post_user_middle_name"] }} {{ service_post["service_post_user_last_name"] }}</p>
                         </div>
                       </div>
@@ -335,19 +336,19 @@
       </thead>
       </table>
 
-      <template id="profileTemplate">
+      <template id="servicePostTemplate">
         <!-- Card -->
-        <div class="col-4 mt-3">
+        <div class="col-6 mt-3">
           <div class="card">
             <div class="card-body">
               <div class="row">
                 <div class="col-12">
                   <div class="row justify-content-center py-3">
                     <div class="col-3 px-2">
-                      <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+                      <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Post Image">
                     </div>
                     <div class="col-8 mx-2">
-                      <h4 class="modal-title" id="exampleModalLabel">%TITLE%</h4>
+                      <h4>%TITLE%</h4>
                       <p class="lead">%USER%</p>
                     </div>
                   </div>
