@@ -74,6 +74,7 @@
           schedule = month[schedule.getMonth()+1] + ' ' + schedule.getDate() + ', ' + schedule.getFullYear();
           
           view += template
+            .replaceAll('%ID%', row.service_post_id)
             .replaceAll('%TITLE%', row.service_post_title)
             .replaceAll('%DESCRIPTION%', row.service_post_description)
             .replaceAll('%USER%', row.service_post_user)
@@ -178,77 +179,117 @@
 
           <div class="row">
             {% for service_post in featured_service_posts %}
-          <!-- Card -->
-          <div class="col-4 mt-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="row justify-content-center py-3">
-                      <div class="col-3 px-2">
-                        <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+            <!-- Card -->
+            <div class="col-4 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row justify-content-center py-3">
+                        <div class="col-3 px-2">
+                          <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+                        </div>
+                        <div class="col-8 mx-2">
+                          <h4 class="modal-title" id="exampleModalLabel">{{ service_post["service_post_title"] }}</h4>
+                          <p class="lead">{{ service_post["service_post_user_first_name"] }} {{ service_post["service_post_user_middle_name"] }} {{ service_post["service_post_user_last_name"] }}</p>
+                        </div>
                       </div>
-                      <div class="col-8 mx-2">
-                        <h4 class="modal-title" id="exampleModalLabel">{{ service_post["service_post_title"] }}</h4>
-                        <p class="lead">%USER%</p>
-                      </div>
+                      <p>
+                      {% for star in range(5) %}
+                        {% if star < service_post["service_post_user_rating"] %}
+                          <span class="fa fa-star" style="color:#EFFD5F"></span>
+                        {% else %}
+                          <span class="fa fa-star" style="color:grey"></span>
+                        {% endif %}
+                      {% endfor %}
+                      </p>
+                      <p>
+                      {% if service_post["service_post_user_level"] == 1 %}
+                        <span class="badge badge-info tags">Basic</span>
+                      {% elif service_post["service_post_user_level"] == 2 %}
+                        <span class="badge badge-info tags">Semi</span>
+                      {% elif service_post["service_post_user_level"] == 3 %}
+                        <span class="badge badge-info tags">Full</span>
+                      {% endif %}
+
+                      {% if service_post["service_post_user_is_trusted"] %}
+                        <span class="badge badge-info tags">Trusted</span>
+                      {% endif %}
+                      </p>
+                      <p>{{ service_post["service_post_description"] }}</p>
+                      <p><small>Posted on {{ ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][service_post["service_post_date_posted"].month] }} {{ service_post["service_post_date_posted"].day }}, {{ service_post["service_post_date_posted"].year }} </small></p>
+                      <button class="btn btn-secondary"><i class="far fa-heart"></i></button>
+                      <button class="btn btn-primary" data-toggle="modal" data-target="#modal_view_service_post_{{ service_post["service_post_id"] }}">More info...</button>
                     </div>
-                    <p>%USER_RATING%</p>
-                    <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
-                    <p>%DESCRIPTION%</p>
-                    <p><small>Posted on %DATE_POSTED%</small></p>
-                    <button class="btn btn-secondary"><i class="far fa-heart"></i></button>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal_view_{{ service_post["service_post_id"] }}">More info...</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Modal -->
-          <div class="modal fade" id="modal_view_{{ service_post["service_post_id"] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-3">
-                        <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
-                      </div>
-                      <div class="col">
-                        <h3 class="modal-title" id="#modal_view_{{ service_post["service_post_id"] }}">{{ service_post["service_post_title"] }}</h5>
-                        <p class="lead">%USER%</p>
-                        <p>%USER_RATING%</p>
-                        <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="modal_view_service_post_{{ service_post["service_post_id"] }}">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-3">
+                          <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
+                        </div>
+                        <div class="col">
+                          <h3 class="modal-title">{{ service_post["service_post_title"] }}</h5>
+                          <p class="lead">{{ service_post["service_post_user"] }}</p>
+                          <p>
+                          {% for star in range(5) %}
+                            {% if star < service_post["service_post_user_rating"] %}
+                              <span class="fa fa-star" style="color:#EFFD5F"></span>
+                            {% else %}
+                              <span class="fa fa-star" style="color:grey"></span>
+                            {% endif %}
+                          {% endfor %}
+                          </p>
+                          <p>
+                          {% if service_post["service_post_user_level"] == 1 %}
+                            <span class="badge badge-info tags">Basic</span>
+                          {% elif service_post["service_post_user_level"] == 2 %}
+                            <span class="badge badge-info tags">Semi</span>
+                          {% elif service_post["service_post_user_level"] == 3 %}
+                            <span class="badge badge-info tags">Full</span>
+                          {% endif %}
+    
+                          {% if service_post["service_post_user_is_trusted"] %}
+                            <span class="badge badge-info tags">Trusted</span>
+                          {% endif %}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid py-3">
-                    <p><b>Service Provider:</b> %USER_FIRST_NAME% %USER_MIDDLE_NAME% %USER_LAST_NAME%</p>
-                    <p></p>
-                    <p><b>Service Category:</b> %CATEGORY%</p>
-                    <p><b>Service Type:</b> %TYPE%</p>
-                    <p><b>Description:</b></p>
-                    <p>%DESCRIPTION%</p>
-                    <p><b>Schedule:</b> %SCHEDULE%</p>
-                    <p><b>Location:</b> %LOCATION%</p>
-                    <p><b>Amount:</b> ₱%AMOUNT%</p>
+                  <div class="modal-body">
+                    <div class="container-fluid py-3">
+                      <p><b>Service Provider:</b> {{ service_post["service_post_user_first_name"] }} {{ service_post["service_post_user_middle_name"] }} {{ service_post["service_post_user_last_name"] }}</p>
+                      <p></p>
+                      <p><b>Service Category:</b>{{ service_post["service_category"] }}</p>
+                      <p><b>Service Type:</b> {{ service_post["service_post_type"] }}</p>
+                      <p><b>Description:</b></p>
+                      <p>{{ service_post["service_post_description"] }}</p>
+                      <p><b>Schedule:</b> {{ service_post["service_post_schedule"] }}</p>
+                      <p><b>Location:</b> {{ service_post["service_post_location"] }}</p>
+                      <p><b>Amount:</b> ₱{{ service_post["service_post_amount"] }}</p>
+                    </div>
+                    <div class="container-fluid">
+                      <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
+                    </div>
                   </div>
-                  <div class="container-fluid">
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
-          </div>
             {% endfor %}
           </div>
       </div>
@@ -274,22 +315,22 @@
         data-custom-view="customViewFormatter">
         <thead>
           <tr>
-            <th data-field="service_post_id">Service ID</th>
-            <th data-field="service_post_title">Service Title</th>
-            <th data-field="service_post_description">Service Description</th>
-            <th data-field="service_post_user">Service User</th>
-            <th data-field="service_post_user_first_name">Service User First Name</th>
-            <th data-field="service_post_user_middle_name">Service User Middle Name</th>
-            <th data-field="service_post_user_last_name">Service User Last Name</th>
-            <th data-field="service_post_user_rating">Service User Rating</th>
-            <th data-field="service_post_user_level">Service User Level</th>
-            <th data-field="service_post_user_is_trusted">Service User Is Trusted</th>
-            <th data-field="service_post_date_posted">Service Date Posted</th>
-            <th data-field="service_post_schedule">Service Schedule</th>
-            <th data-field="service_post_location">Service Location</th>
-            <th data-field="service_post_type">Service Type</th>
-            <th data-field="service_post_category">Service Category</th>
-            <th data-field="service_post_amount">Service Amount</th>
+            <th data-field="service_post_id">Service Post ID</th>
+            <th data-field="service_post_title">Service Post Title</th>
+            <th data-field="service_post_description">Service Post Description</th>
+            <th data-field="service_post_user">Service Post User</th>
+            <th data-field="service_post_user_first_name">Service Post User First Name</th>
+            <th data-field="service_post_user_middle_name">Service Post User Middle Name</th>
+            <th data-field="service_post_user_last_name">Service Post User Last Name</th>
+            <th data-field="service_post_user_rating">Service Post User Rating</th>
+            <th data-field="service_post_user_level">Service Post User Level</th>
+            <th data-field="service_post_user_is_trusted">Service Post User Is Trusted</th>
+            <th data-field="service_post_date_posted">Service Post Date Posted</th>
+            <th data-field="service_post_schedule">Service Post Schedule</th>
+            <th data-field="service_post_location">Service Post Location</th>
+            <th data-field="service_post_type">Service Post Type</th>
+            <th data-field="service_post_category">Service Post Category</th>
+            <th data-field="service_post_amount">Service Post Amount</th>
           </tr>
       </thead>
       </table>
@@ -315,7 +356,7 @@
                   <p>%DESCRIPTION%</p>
                   <p><small>Posted on %DATE_POSTED%</small></p>
                   <button class="btn btn-secondary"><i class="far fa-heart"></i></button>
-                  <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">More info...</button>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#modal_view_service_post_%ID%">More info...</button>
                 </div>
               </div>
             </div>
@@ -323,7 +364,7 @@
         </div>
         
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal_view_service_post_%ID%">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -333,7 +374,7 @@
                       <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
                     </div>
                     <div class="col">
-                      <h3 class="modal-title" id="exampleModalLabel">%TITLE%</h5>
+                      <h3 class="modal-title" id="modal_view_%USER%_label">%TITLE%</h5>
                       <p class="lead">%USER%</p>
                       <p>%USER_RATING%</p>
                       <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>

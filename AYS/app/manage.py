@@ -6,7 +6,8 @@ def all_service_posts():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-        SELECT ServicePost.service_post_title,
+        SELECT ServicePost.service_post_id,
+               ServicePost.service_post_title,
                ServicePost.service_post_description,
                User.user_id AS service_post_user,
                User.user_first_name AS service_post_user_first_name,
@@ -68,7 +69,8 @@ def featured_service_posts():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-         SELECT ServicePost.service_post_title,
+        SELECT ServicePost.service_post_id,
+               ServicePost.service_post_title,
                ServicePost.service_post_description,
                User.user_id AS service_post_user,
                User.user_first_name AS service_post_user_first_name,
