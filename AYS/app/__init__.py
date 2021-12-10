@@ -1,6 +1,7 @@
 from flask import Flask
 
 from .views.main import main
+from .views.miscellaneous import miscellaneous
 
 from extensions import *
 
@@ -22,5 +23,6 @@ def create_app():
     with app.app_context():
         # Register blueprints
         app.register_blueprint(main)
+        app.register_blueprint(miscellaneous)
     
     return app

@@ -89,7 +89,7 @@ def featured_service_posts():
         JOIN `User` ON ServicePost.service_post_user = User.user_id
         JOIN `ServiceType` ON ServicePost.service_post_type = ServiceType.service_type_id
         JOIN `ServiceCategory` ON ServiceType.service_category = ServiceCategory.service_category_id
-
+        ORDER BY service_post_user_rating DESC
         LIMIT 3;
     """)
     featured_service_posts = cursor.fetchall()
@@ -102,6 +102,7 @@ def featured_service_categories():
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
         SELECT * FROM `ServiceCategory`
+        ORDER BY user_rating DESC
         LIMIT 6;
     """)
     featured_service_categories = cursor.fetchall()
@@ -114,6 +115,7 @@ def featured_service_providers():
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
         SELECT * FROM `User` WHERE `user_account_type` = 'SP'
+        ORDER BY user_rating DESC
         LIMIT 6;
     """)
     featured_providers = cursor.fetchall()

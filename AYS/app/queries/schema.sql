@@ -8,7 +8,7 @@ CREATE TABLE `User`
     `user_password` VARCHAR(100) NOT NULL,
     `user_account_type` VARCHAR(2) NOT NULL,
     
-    `user_rating` INT NULL,
+    `user_rating` FLOAT(3, 2) NOT NULL,
     `user_level` INT NULL,
     `user_is_trusted` BOOLEAN NULL,
 
@@ -67,15 +67,3 @@ CREATE TABLE `ServicePost`
     FOREIGN KEY (`service_post_user`) REFERENCES `User` (`user_id`),
     FOREIGN KEY (`service_post_type`) REFERENCES `ServiceType` (`service_type_id`)
 );
-
-INSERT INTO `User` (`user_id`, `user_password`, `user_account_type`, `user_rating`, `user_level`, `user_is_trusted`, `user_first_name`, `user_middle_name`, `user_last_name`)
-VALUES ('aoi_suzuki', '1234', 'SP', 3, 1, true, 'Aoi', '', 'Suzuki');
-
-INSERT INTO `ServiceCategory` (`service_category_name`)
-VALUES ('Education');
-
-INSERT INTO `ServiceType` (`service_type_name`, `service_category`)
-VALUES ('Class', 1);
-
-INSERT INTO `ServicePost` (`service_post_title`, `service_post_description`, `service_post_user`, `service_post_date_posted`, `service_post_schedule`, `service_post_location`, `service_post_type`, `service_post_amount`)
-VALUES ('Aoi no Zen Garden', 'This is a free Japanese class tutorial for beginners!', 'aoi_suzuki', '2000-12-20', '2000-12-25', 'Tokyo Japan', 1, 1.99);

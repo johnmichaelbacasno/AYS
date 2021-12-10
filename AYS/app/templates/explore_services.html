@@ -36,13 +36,14 @@
           var stars = ''
           for (i = 0; i < 5; i++) {
 
-            if (i < row.service_post_user_rating) {
+            if (i < parseInt(row.service_post_user_rating)) {
               stars += '<span class="fa fa-star" style="color:#EFFD5F"></span> ';
             }
             else {
               stars += '<span class="fa fa-star" style="color:grey"></span> ';
             }
           }
+          stars += '(' + row.service_post_user_rating.toString() + ')';
 
           var trusted = ''
           if (row.service_post_user_is_trusted) {
@@ -197,12 +198,13 @@
                       </div>
                       <p>
                       {% for star in range(5) %}
-                        {% if star < service_post["service_post_user_rating"] %}
+                        {% if star < (service_post["service_post_user_rating"] | int) %}
                           <span class="fa fa-star" style="color:#EFFD5F"></span>
                         {% else %}
                           <span class="fa fa-star" style="color:grey"></span>
                         {% endif %}
                       {% endfor %}
+                      ({{ service_post["service_post_user_rating"] }})
                       </p>
                       <p>
                       {% if service_post["service_post_user_level"] == 1 %}
@@ -220,7 +222,7 @@
                       <p>{{ service_post["service_post_description"] }}</p>
                       <p><small>Posted on {{ ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][service_post["service_post_date_posted"].month] }} {{ service_post["service_post_date_posted"].day }}, {{ service_post["service_post_date_posted"].year }} </small></p>
                       <button class="btn btn-secondary"><i class="far fa-heart"></i></button>
-                      <button class="btn btn-primary" data-toggle="modal" data-target="#modal_view_service_post_{{ service_post["service_post_id"] }}">More info...</button>
+                      <button class="btn btn-primary" data-toggle="modal" data-target="#modal_view_featured_service_post_{{ service_post["service_post_id"] }}">More info...</button>
                     </div>
                   </div>
                 </div>
@@ -228,7 +230,7 @@
             </div>
             
             <!-- Modal -->
-            <div class="modal fade" id="modal_view_service_post_{{ service_post["service_post_id"] }}">
+            <div class="modal fade" id="modal_view_featured_service_post_{{ service_post["service_post_id"] }}">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -242,12 +244,13 @@
                           <p class="lead">{{ service_post["service_post_user"] }}</p>
                           <p>
                           {% for star in range(5) %}
-                            {% if star < service_post["service_post_user_rating"] %}
+                            {% if star < (service_post["service_post_user_rating"] | int) %}
                               <span class="fa fa-star" style="color:#EFFD5F"></span>
                             {% else %}
                               <span class="fa fa-star" style="color:grey"></span>
                             {% endif %}
                           {% endfor %}
+                          ({{ service_post["service_post_user_rating"] }})
                           </p>
                           <p>
                           {% if service_post["service_post_user_level"] == 1 %}
@@ -308,7 +311,7 @@
         data-id-table="advancedTable"
         data-show-refresh="true"
         data-pagination="true"
-        data-page-size="6"
+        data-page-size="4"
         data-pagination-h-align="left"
         data-pagination-detail-h-align="right"
         data-show-custom-view="true"
