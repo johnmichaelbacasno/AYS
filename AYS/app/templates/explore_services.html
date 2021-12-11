@@ -5,13 +5,7 @@
     {% block styles %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
-    <style>
-      body {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-        color: #5a5a5a;
-      }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% endblock %}
 
     {% block scripts %}
@@ -23,12 +17,12 @@
     {% block content %}
     <script>
       $(function() {
-        $('#table').bootstrapTable({
+        $('#servicePosts').bootstrapTable({
           data: JSON.parse('{{ services | tojson | safe}}')
         })
       })
 
-      function customViewFormatter (data) {
+      function servicePostViewFormatter (data) {
         var template = $('#servicePostTemplate').html();
         var view = '';
 
@@ -135,7 +129,7 @@
       <div class="jumbotron">
         <div class="container">
           <h1 class="display-3">Explore Services</h1>
-          <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+          <p>Check all of the featured services and posts by our awesome service providers!</p>
         </div>
       </div>
     </main>
@@ -302,7 +296,7 @@
     <div class="container pb-5">
       <p class="lead">Explore Services</p>
       <table
-        id="table"
+        id="servicePosts"
         data-search="true"
         data-show-search-button="true"
         data-show-search-clear-button="true"
@@ -316,25 +310,25 @@
         data-pagination-detail-h-align="right"
         data-show-custom-view="true"
         data-show-custom-view-button="true"
-        data-custom-view="customViewFormatter">
+        data-custom-view="servicePostViewFormatter">
         <thead>
           <tr>
-            <th data-field="service_post_id">Service Post ID</th>
-            <th data-field="service_post_title">Service Post Title</th>
-            <th data-field="service_post_description">Service Post Description</th>
-            <th data-field="service_post_user">Service Post User</th>
-            <th data-field="service_post_user_first_name">Service Post User First Name</th>
-            <th data-field="service_post_user_middle_name">Service Post User Middle Name</th>
-            <th data-field="service_post_user_last_name">Service Post User Last Name</th>
-            <th data-field="service_post_user_rating">Service Post User Rating</th>
-            <th data-field="service_post_user_level">Service Post User Level</th>
-            <th data-field="service_post_user_is_trusted">Service Post User Is Trusted</th>
-            <th data-field="service_post_date_posted">Service Post Date Posted</th>
-            <th data-field="service_post_schedule">Service Post Schedule</th>
-            <th data-field="service_post_location">Service Post Location</th>
-            <th data-field="service_post_type">Service Post Type</th>
-            <th data-field="service_post_category">Service Post Category</th>
-            <th data-field="service_post_amount">Service Post Amount</th>
+            <th data-field="service_post_id" data-searchable="false">Service Post ID</th>
+            <th data-field="service_post_title" data-searchable="true">Service Post Title</th>
+            <th data-field="service_post_description" data-searchable="false">Service Post Description</th>
+            <th data-field="service_post_user" data-searchable="true">Service Post User</th>
+            <th data-field="service_post_user_first_name" data-searchable="true">Service Post User First Name</th>
+            <th data-field="service_post_user_middle_name" data-searchable="true">Service Post User Middle Name</th>
+            <th data-field="service_post_user_last_name" data-searchable="true">Service Post User Last Name</th>
+            <th data-field="service_post_user_rating" data-searchable="false">Service Post User Rating</th>
+            <th data-field="service_post_user_level" data-searchable="false">Service Post User Level</th>
+            <th data-field="service_post_user_is_trusted" data-searchable="false">Service Post User Is Trusted</th>
+            <th data-field="service_post_date_posted" data-searchable="false">Service Post Date Posted</th>
+            <th data-field="service_post_schedule" data-searchable="false">Service Post Schedule</th>
+            <th data-field="service_post_location" data-searchable="true">Service Post Location</th>
+            <th data-field="service_post_type" data-searchable="true">Service Post Type</th>
+            <th data-field="service_post_category" data-searchable="true">Service Post Category</th>
+            <th data-field="service_post_amount" data-searchable="false">Service Post Amount</th>
           </tr>
       </thead>
       </table>

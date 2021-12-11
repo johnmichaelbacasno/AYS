@@ -102,7 +102,6 @@ def featured_service_categories():
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
         SELECT * FROM `ServiceCategory`
-        ORDER BY user_rating DESC
         LIMIT 6;
     """)
     featured_service_categories = cursor.fetchall()

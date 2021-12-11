@@ -3,13 +3,7 @@
     {% block title %}Privacy Policy{% endblock %}
 
     {% block styles %}
-    <style>
-      body {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-        color: #5a5a5a;
-      }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% endblock %}
 
     {% block content %}
