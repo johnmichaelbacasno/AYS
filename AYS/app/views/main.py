@@ -4,7 +4,6 @@ from .. manage import *
 
 main = Blueprint('main', __name__)
 
-@main.route('/')
 @main.route('/explore_services')
 def explore_services():
     return render_template(
@@ -15,6 +14,7 @@ def explore_services():
         featured_service_posts=featured_service_posts()
     )
 
+@main.route('/')
 @main.route('/landing_page_service_provider')
 def landing_page_service_provider():
     return render_template('landing_page_service_provider.html')
