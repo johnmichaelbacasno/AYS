@@ -8,7 +8,7 @@ CREATE TABLE `User`
     `user_password` VARCHAR(100) NOT NULL,
     `user_account_type` VARCHAR(2) NOT NULL,
     
-    `user_rating` FLOAT(3, 2) NOT NULL,
+    `user_rating` FLOAT(3, 2) NULL,
     `user_level` INT NULL,
     `user_is_trusted` BOOLEAN NULL,
 
