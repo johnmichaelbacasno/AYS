@@ -28,10 +28,10 @@ def explore_services():
             featured_service_posts=featured_service_posts()
         )
 
-@main.route('/home-service-provider')
+@main.route('/home/service-provider')
 def landing_page_service_provider():
     return render_template('landing_page_service_provider.html')
 
-@main.route('/home-client')
+@main.route('/home/client')
 def landing_page_client():
     return render_template('landing_page_client.html')
