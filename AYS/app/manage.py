@@ -2,6 +2,24 @@ import pymysql
 
 from extensions import db
 
+def user_is_service_provider(id):
+    conn = db.connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT `user_account_type` FROM `User` where user_id=%s", (id,))
+    account_type = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return account_type == 'SP'
+
+def user_is_client(id):
+    conn = db.connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT `user_account_type` FROM `User` where user_id=%s", (id,))
+    account_type = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return account_type == 'C'
+
 def all_service_posts():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
