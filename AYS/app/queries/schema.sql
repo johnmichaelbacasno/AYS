@@ -6,7 +6,7 @@ CREATE TABLE `User`
 (
     `user_id` VARCHAR(100) NOT NULL,
     `user_password` VARCHAR(100) NOT NULL,
-    `user_account_type` VARCHAR(2) NOT NULL,
+    `user_account_type` VARCHAR(2) NOT NULL, -- "C", "SP"
     
     `user_rating` FLOAT(3, 2) NULL,
     `user_level` INT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `User`
     `user_address_country` VARCHAR(100) NULL,
     `user_profile_description` TEXT NULL,
     `user_profile_picture` VARCHAR(255) NULL,
-    `user_sex` VARCHAR(6) NULL,
+    `user_sex` VARCHAR(6) NULL, -- "Male", "Female"
     `user_education` VARCHAR(255) NULL,
     `user_birthdate` DATE NULL,
 
@@ -88,7 +88,7 @@ CREATE TABLE `RequestPost`
 CREATE TABLE `Service`
 (
     `service_id` INT NOT NULL AUTO_INCREMENT,
-    `service_status` VARCHAR(10) NOT NULL,
+    `service_status` VARCHAR(10) NOT NULL, -- "Pending", "Ongoing", "Cancelled", "Completed"
     `service_request_post` INT NULL,
     `service_service_post` INT NULL,
     `service_client` VARCHAR(100) NOT NULL,
