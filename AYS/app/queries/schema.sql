@@ -84,3 +84,22 @@ CREATE TABLE `RequestPost`
     FOREIGN KEY (`request_post_user`) REFERENCES `User` (`user_id`),
     FOREIGN KEY (`request_post_service_type`) REFERENCES `ServiceType` (`service_type_id`)
 );
+
+CREATE TABLE `Service`
+(
+    `service_id` INT NOT NULL AUTO_INCREMENT,
+    `service_status` VARCHAR(10) NOT NULL,
+    `service_request_post` INT NULL,
+    `service_service_post` INT NULL,
+    `service_client` VARCHAR(100) NOT NULL,
+    `service_provider` VARCHAR(100) NOT NULL,
+    `service_client_notes` TEXT NULL,
+    `service_provider_notes` TEXT NULL,
+    `service_start_date` DATE NOT NULL,
+    `service_end_date` DATE NULL,
+    `service_amount` FLOAT(20, 2) NOT NULL,
+    
+    FOREIGN KEY (`service_client`) REFERENCES `User` (`user_id`),
+    FOREIGN KEY (`service_provider`) REFERENCES `User` (`user_id`)
+);
+
