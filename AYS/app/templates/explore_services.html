@@ -72,7 +72,7 @@
             .replaceAll('%ID%', row.service_post_id)
             .replaceAll('%TITLE%', row.service_post_title)
             .replaceAll('%DESCRIPTION%', row.service_post_description)
-            .replaceAll('%USER%', row.service_post_user)
+            .replaceAll('%USER_ID%', row.service_post_user_id)
             .replaceAll('%USER_FIRST_NAME%', row.service_post_user_first_name)
             .replaceAll('%USER_MIDDLE_NAME%', row.service_post_user_middle_name)
             .replaceAll('%USER_LAST_NAME%', row.service_post_user_last_name)
@@ -82,8 +82,8 @@
             .replaceAll('%DATE_POSTED%', date_posted)
             .replaceAll('%SCHEDULE%', schedule)
             .replaceAll('%LOCATION%', row.service_location)
-            .replaceAll('%TYPE%', row.service_post_type)
-            .replaceAll('%CATEGORY%', row.service_post_category)
+            .replaceAll('%TYPE%', row.service_post_service_type_name)
+            .replaceAll('%CATEGORY%', row.service_post_service_category_name)
             .replaceAll('%AMOUNT%', row.service_post_amount);
         })
         
@@ -187,7 +187,7 @@
                         </div>
                         <div class="col-8 mx-2">
                           <h4>{{ service_post["service_post_title"] }}</h4>
-                          <p class="lead">{{ service_post["service_post_user_first_name"] }} {{ service_post["service_post_user_middle_name"] }} {{ service_post["service_post_user_last_name"] }}</p>
+                          <p class="lead">{{ service_post["service_post_user_id"] }}</p>
                         </div>
                       </div>
                       <p>
@@ -235,7 +235,7 @@
                         </div>
                         <div class="col">
                           <h3 class="modal-title">{{ service_post["service_post_title"] }}</h5>
-                          <p class="lead">{{ service_post["service_post_user"] }}</p>
+                          <p class="lead">{{ service_post["service_post_user_id"] }}</p>
                           <p>
                           {% for star in range(5) %}
                             {% if star < (service_post["service_post_user_rating"] | int) %}
@@ -268,15 +268,15 @@
                   </div>
                   <div class="modal-body">
                     <div class="container-fluid py-3">
-                      <p><b>Service Provider:</b> {{ service_post["service_post_user_first_name"] }} {{ service_post["service_post_user_middle_name"] }} {{ service_post["service_post_user_last_name"] }}</p>
+                      <p><b>Service Provider: </b>{{ service_post["service_post_user_first_name"] }} {{ service_post["service_post_user_middle_name"] }} {{ service_post["service_post_user_last_name"] }}</p>
                       <p></p>
-                      <p><b>Service Category:</b>{{ service_post["service_category"] }}</p>
-                      <p><b>Service Type:</b> {{ service_post["service_post_type"] }}</p>
+                      <p><b>Service Category: </b>{{ service_post["service_post_service_category_name"] }}</p>
+                      <p><b>Service Type: </b>{{ service_post["service_post_service_type_name"] }}</p>
                       <p><b>Description:</b></p>
                       <p>{{ service_post["service_post_description"] }}</p>
-                      <p><b>Schedule:</b> {{ service_post["service_post_schedule"] }}</p>
-                      <p><b>Location:</b> {{ service_post["service_post_location"] }}</p>
-                      <p><b>Amount:</b> ₱{{ service_post["service_post_amount"] }}</p>
+                      <p><b>Schedule: </b>{{ service_post["service_post_schedule"] }}</p>
+                      <p><b>Location: </b>{{ service_post["service_post_location"] }}</p>
+                      <p><b>Amount: </b>₱{{ service_post["service_post_amount"] }}</p>
                     </div>
                     <div class="container-fluid">
                       <button type="button" class="btn btn-primary btn-lg btn-block">Book now!</button>
@@ -316,7 +316,7 @@
             <th data-field="service_post_id" data-searchable="false">Service Post ID</th>
             <th data-field="service_post_title" data-searchable="true">Service Post Title</th>
             <th data-field="service_post_description" data-searchable="false">Service Post Description</th>
-            <th data-field="service_post_user" data-searchable="true">Service Post User</th>
+            <th data-field="service_post_user_id" data-searchable="true">Service Post User ID</th>
             <th data-field="service_post_user_first_name" data-searchable="true">Service Post User First Name</th>
             <th data-field="service_post_user_middle_name" data-searchable="true">Service Post User Middle Name</th>
             <th data-field="service_post_user_last_name" data-searchable="true">Service Post User Last Name</th>
@@ -326,8 +326,10 @@
             <th data-field="service_post_date_posted" data-searchable="false">Service Post Date Posted</th>
             <th data-field="service_post_schedule" data-searchable="false">Service Post Schedule</th>
             <th data-field="service_post_location" data-searchable="true">Service Post Location</th>
-            <th data-field="service_post_type" data-searchable="true">Service Post Type</th>
-            <th data-field="service_post_category" data-searchable="true">Service Post Category</th>
+            <th data-field="service_post_service_type_id" data-searchable="true">Service Post Type ID</th>
+            <th data-field="service_post_service_type_name" data-searchable="true">Service Post Type Name</th>
+            <th data-field="service_post_service_category_id" data-searchable="true">Service Post Category ID</th>
+            <th data-field="service_post_service_category_name" data-searchable="true">Service Post Category Name</th>
             <th data-field="service_post_amount" data-searchable="false">Service Post Amount</th>
           </tr>
       </thead>
@@ -346,7 +348,7 @@
                     </div>
                     <div class="col-8 mx-2">
                       <h4>%TITLE%</h4>
-                      <p class="lead">%USER%</p>
+                      <p class="lead">%USER_ID%</p>
                     </div>
                   </div>
                   <p>%USER_RATING%</p>
@@ -372,8 +374,8 @@
                       <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service">
                     </div>
                     <div class="col">
-                      <h3 class="modal-title" id="modal_view_%USER%_label">%TITLE%</h5>
-                      <p class="lead">%USER%</p>
+                      <h3 class="modal-title" id="modal_view_%USER_ID%_label">%TITLE%</h5>
+                      <p class="lead">%USER_ID%</p>
                       <p>%USER_RATING%</p>
                       <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
                     </div>

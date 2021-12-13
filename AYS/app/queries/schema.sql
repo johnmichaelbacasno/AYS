@@ -60,10 +60,27 @@ CREATE TABLE `ServicePost`
     `service_post_date_posted` DATE NOT NULL,
     `service_post_schedule` DATE NOT NULL,
     `service_post_location` VARCHAR(100) NOT NULL,
-    `service_post_type` INT NOT NULL,
+    `service_post_service_type` INT NOT NULL,
     `service_post_amount` FLOAT(20, 2) NOT NULL,
 
     PRIMARY KEY (`service_post_id`),
     FOREIGN KEY (`service_post_user`) REFERENCES `User` (`user_id`),
-    FOREIGN KEY (`service_post_type`) REFERENCES `ServiceType` (`service_type_id`)
+    FOREIGN KEY (`service_post_service_type`) REFERENCES `ServiceType` (`service_type_id`)
+);
+
+CREATE TABLE `RequestPost`
+(
+    `request_post_id` INT NOT NULL AUTO_INCREMENT,
+    `request_post_title` VARCHAR(100) NOT NULL,
+    `request_post_description` TEXT NOT NULL,
+    `request_post_user` VARCHAR(100) NOT NULL,
+    `request_post_date_posted` DATE NOT NULL,
+    `request_post_schedule` DATE NOT NULL,
+    `request_post_location` VARCHAR(100) NOT NULL,
+    `request_post_service_type` INT NOT NULL,
+    `request_post_amount` FLOAT(20, 2) NOT NULL,
+    
+    PRIMARY KEY (`request_post_id`),
+    FOREIGN KEY (`request_post_user`) REFERENCES `User` (`user_id`),
+    FOREIGN KEY (`request_post_service_type`) REFERENCES `ServiceType` (`service_type_id`)
 );

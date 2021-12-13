@@ -9,7 +9,7 @@ def all_service_posts():
         SELECT ServicePost.service_post_id,
                ServicePost.service_post_title,
                ServicePost.service_post_description,
-               User.user_id AS service_post_user,
+               User.user_id AS service_post_user_id,
                User.user_first_name AS service_post_user_first_name,
                User.user_middle_name AS service_post_user_middle_name,
                User.user_last_name AS service_post_user_last_name,
@@ -19,12 +19,14 @@ def all_service_posts():
                ServicePost.service_post_date_posted,
                ServicePost.service_post_schedule,
                ServicePost.service_post_location,
-               ServiceType.service_type_name AS service_post_type,
-               ServiceCategory.service_category_name AS service_post_category,
+               ServicePost.service_post_service_type AS service_post_service_type_id,
+               ServiceType.service_type_name AS service_post_service_type_name,
+               ServiceCategory.service_category_id AS service_post_service_category_id,
+               ServiceCategory.service_category_name AS service_post_service_category_name,
                ServicePost.service_post_amount
         FROM `ServicePost`
         JOIN `User` ON ServicePost.service_post_user = User.user_id
-        JOIN `ServiceType` ON ServicePost.service_post_type = ServiceType.service_type_id
+        JOIN `ServiceType` ON ServicePost.service_post_service_type = ServiceType.service_type_id
         JOIN `ServiceCategory` ON ServiceType.service_category = ServiceCategory.service_category_id
     """)
     all_service_posts = cursor.fetchall()
@@ -72,7 +74,7 @@ def featured_service_posts():
         SELECT ServicePost.service_post_id,
                ServicePost.service_post_title,
                ServicePost.service_post_description,
-               User.user_id AS service_post_user,
+               User.user_id AS service_post_user_id,
                User.user_first_name AS service_post_user_first_name,
                User.user_middle_name AS service_post_user_middle_name,
                User.user_last_name AS service_post_user_last_name,
@@ -82,12 +84,14 @@ def featured_service_posts():
                ServicePost.service_post_date_posted,
                ServicePost.service_post_schedule,
                ServicePost.service_post_location,
-               ServiceType.service_type_name AS service_post_type,
-               ServiceCategory.service_category_name AS service_post_category,
+               ServicePost.service_post_service_type AS service_post_service_type_id,
+               ServiceType.service_type_name AS service_post_service_type_name,
+               ServiceCategory.service_category_id AS service_post_service_category_id,
+               ServiceCategory.service_category_name AS service_post_service_category_name,
                ServicePost.service_post_amount
         FROM `ServicePost`
         JOIN `User` ON ServicePost.service_post_user = User.user_id
-        JOIN `ServiceType` ON ServicePost.service_post_type = ServiceType.service_type_id
+        JOIN `ServiceType` ON ServicePost.service_post_service_type = ServiceType.service_type_id
         JOIN `ServiceCategory` ON ServiceType.service_category = ServiceCategory.service_category_id
         ORDER BY service_post_user_rating DESC
         LIMIT 3;
