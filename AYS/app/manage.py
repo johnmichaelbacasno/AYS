@@ -2,33 +2,64 @@ import pymysql
 
 from extensions import db
 
-def user_is_service_provider(id):
-    conn = db.connect()
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT `user_account_type` FROM `User`
-        WHERE user_id=%s
-        """,
-        (id,)
-        )
-    account_type = cursor.fetchone()[0]
-    cursor.close()
-    conn.close()
-    return account_type == 'SP'
-
 def user_is_client(id):
     conn = db.connect()
     cursor = conn.cursor()
     cursor.execute("""
         SELECT `user_account_type` FROM `User`
-        WHERE user_id=%s
+        WHERE user_id = %s
         """,
-        (id,)
-        )
+        (id,))
     account_type = cursor.fetchone()[0]
     cursor.close()
     conn.close()
     return account_type == 'C'
+
+def user_is_service_provider(id):
+    conn = db.connect()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT `user_account_type` FROM `User`
+        WHERE user_id = %s
+        """,
+        (id,))
+    account_type = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return account_type == 'SP'
+
+def all_clients():
+    conn = db.connect()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("""
+        SELECT * FROM `User` WHERE `user_account_type` = 'C'
+        """)
+    all_clients = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return all_clients
+
+def all_service_providers():
+    conn = db.connect()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("""
+        SELECT * FROM `User` WHERE `user_account_type` = 'SP'
+        """)
+    all_service_providers = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return all_service_providers
+
+def all_service_categories():
+    conn = db.connect()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("""
+        SELECT * FROM `ServiceCategory`
+        """)
+    all_service_categories = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return all_service_categories
 
 def all_service_posts():
     conn = db.connect()
@@ -56,44 +87,49 @@ def all_service_posts():
         JOIN `User` ON ServicePost.service_post_user = User.user_id
         JOIN `ServiceType` ON ServicePost.service_post_service_type = ServiceType.service_type_id
         JOIN `ServiceCategory` ON ServiceType.service_category = ServiceCategory.service_category_id
-    """)
+        """)
     all_service_posts = cursor.fetchall()
     cursor.close()
     conn.close()
     return all_service_posts
 
-def all_service_categories():
+def featured_clients():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-        SELECT * FROM `ServiceCategory`;
-    """)
-    all_service_categories = cursor.fetchall()
+        SELECT * FROM `User` WHERE `user_account_type` = 'C'
+        ORDER BY user_rating DESC
+        LIMIT 6
+        """)
+    featured_clients = cursor.fetchall()
     cursor.close()
     conn.close()
-    return all_service_categories
+    return featured_clients
 
-def all_service_providers():
+def featured_service_providers():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-        SELECT * FROM `User` WHERE `user_account_type` = 'SP';
-    """)
-    all_service_providers = cursor.fetchall()
+        SELECT * FROM `User` WHERE `user_account_type` = 'SP'
+        ORDER BY user_rating DESC
+        LIMIT 6
+        """)
+    featured_providers = cursor.fetchall()
     cursor.close()
     conn.close()
-    return all_service_providers
+    return featured_providers
 
-def all_clients():
+def featured_service_categories():
     conn = db.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("""
-        SELECT * FROM `User` WHERE `user_account_type` = 'C';
-    """)
-    all_clients = cursor.fetchall()
+        SELECT * FROM `ServiceCategory`
+        LIMIT 6
+        """)
+    featured_service_categories = cursor.fetchall()
     cursor.close()
     conn.close()
-    return all_clients
+    return featured_service_categories
 
 def featured_service_posts():
     conn = db.connect()
@@ -123,33 +159,8 @@ def featured_service_posts():
         JOIN `ServiceCategory` ON ServiceType.service_category = ServiceCategory.service_category_id
         ORDER BY service_post_user_rating DESC
         LIMIT 3;
-    """)
+        """)
     featured_service_posts = cursor.fetchall()
     cursor.close()
     conn.close()
     return featured_service_posts
-
-def featured_service_categories():
-    conn = db.connect()
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    cursor.execute("""
-        SELECT * FROM `ServiceCategory`
-        LIMIT 6;
-    """)
-    featured_service_categories = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return featured_service_categories
-
-def featured_service_providers():
-    conn = db.connect()
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    cursor.execute("""
-        SELECT * FROM `User` WHERE `user_account_type` = 'SP'
-        ORDER BY user_rating DESC
-        LIMIT 6;
-    """)
-    featured_providers = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return featured_providers
