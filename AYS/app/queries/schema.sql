@@ -85,21 +85,39 @@ CREATE TABLE `RequestPost`
     FOREIGN KEY (`request_post_service_type`) REFERENCES `ServiceType` (`service_type_id`)
 );
 
-CREATE TABLE `Service`
+CREATE TABLE `ServiceBook`
 (
-    `service_id` INT NOT NULL AUTO_INCREMENT,
-    `service_status` VARCHAR(10) NOT NULL, -- "Pending", "Ongoing", "Cancelled", "Completed"
-    `service_request_post` INT NULL,
-    `service_service_post` INT NULL,
-    `service_client` VARCHAR(100) NOT NULL,
-    `service_provider` VARCHAR(100) NOT NULL,
-    `service_client_notes` TEXT NULL,
-    `service_provider_notes` TEXT NULL,
-    `service_start_date` DATE NOT NULL,
-    `service_end_date` DATE NULL,
-    `service_amount` FLOAT(20, 2) NOT NULL,
+    `service_book_id` INT NOT NULL AUTO_INCREMENT,
+    `service_book_status` VARCHAR(10) NOT NULL, -- "Pending", "Ongoing", "Cancelled", "Completed"
+    `service_book_service_post` INT NULL,
+    `service_book_client` VARCHAR(100) NOT NULL,
+    `service_book_service_provider` VARCHAR(100) NOT NULL,
+    `service_book_client_notes` TEXT NULL,
+    `service_book_provider_notes` TEXT NULL,
+    `service_book_start_date` DATE NOT NULL,
+    `service_book_end_date` DATE NULL,
+    `service_book_amount` FLOAT(20, 2) NOT NULL,
     
-    FOREIGN KEY (`service_client`) REFERENCES `User` (`user_id`),
-    FOREIGN KEY (`service_provider`) REFERENCES `User` (`user_id`)
+    PRIMARY KEY (`service_book_id`),
+    FOREIGN KEY (`service_book_client`) REFERENCES `User` (`user_id`),
+    FOREIGN KEY (`service_book_service_provider`) REFERENCES `User` (`user_id`)
+);
+
+CREATE TABLE `ServiceApply`
+(
+    `service_apply_id` INT NOT NULL AUTO_INCREMENT,
+    `service_apply_status` VARCHAR(10) NOT NULL, -- "Pending", "Ongoing", "Cancelled", "Completed"
+    `service_apply_request_post` INT NULL,
+    `service_apply_client` VARCHAR(100) NOT NULL,
+    `service_apply_service_provider` VARCHAR(100) NOT NULL,
+    `service_apply_client_notes` TEXT NULL,
+    `service_apply_provider_notes` TEXT NULL,
+    `service_apply_start_date` DATE NOT NULL,
+    `service_apply_end_date` DATE NULL,
+    `service_apply_amount` FLOAT(20, 2) NOT NULL,
+    
+    PRIMARY KEY (`service_apply_id`),
+    FOREIGN KEY (`service_apply_client`) REFERENCES `User` (`user_id`),
+    FOREIGN KEY (`service_apply_service_provider`) REFERENCES `User` (`user_id`)
 );
 
