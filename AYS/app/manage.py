@@ -2,6 +2,19 @@ import pymysql
 
 from extensions import db
 
+def get_user_password(id):
+    conn = db.connect()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT `user_password` FROM `User`
+        WHERE user_id = %s
+        """,
+        (id,))
+    password = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return password
+
 def user_is_client(id):
     conn = db.connect()
     cursor = conn.cursor()

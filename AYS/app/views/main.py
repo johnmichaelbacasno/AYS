@@ -7,6 +7,11 @@ main = Blueprint('main', __name__)
 session = {'username' : 'aoi_suzuki2'}
 
 @main.route('/')
+@main.route('/test')
+def test():
+    user = session['username']
+    return f"{user}: {get_user_password(user)}"
+
 @main.route('/explore-services')
 def explore_services():
     
