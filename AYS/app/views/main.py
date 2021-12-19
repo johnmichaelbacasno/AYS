@@ -1,17 +1,20 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
 from .. manage import *
 
 main = Blueprint('main', __name__)
 
-CURRENT_USER = 'aoi_suzuki1'
+session = {'username' : 'aoi_suzuki2'}
 
 @main.route('/')
 @main.route('/explore-services')
 def explore_services():
-    global CURRENT_USER
+    
+    user = session['username']
 
-    if user_is_client(CURRENT_USER):
+    if user is None:
+        return redirect('/sign-in')
+    elif user_is_client(user):
         return render_template(
             'client/explore_services.html',
             services=all_service_posts(),
@@ -19,7 +22,7 @@ def explore_services():
             featured_service_providers=featured_service_providers(),
             featured_service_posts=featured_service_posts()
         )
-    elif user_is_service_provider(CURRENT_USER):
+    elif user_is_service_provider(user):
          return render_template(
             'service_provider/explore_services.html',
             services=all_service_posts(),
