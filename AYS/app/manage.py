@@ -11,27 +11,27 @@ def user_id_exists(user_id):
     conn.close()
     return bool(user)
 
-def user_is_client(id):
+def user_is_client(user_id):
     conn = db.connect()
     cursor = conn.cursor()
     cursor.execute("""
         SELECT `user_account_type` FROM `User`
         WHERE user_id = %s
         """,
-        (id,))
+        (user_id,))
     account_type = cursor.fetchone()[0]
     cursor.close()
     conn.close()
     return account_type == 'C'
 
-def user_is_service_provider(id):
+def user_is_service_provider(user_id):
     conn = db.connect()
     cursor = conn.cursor()
     cursor.execute("""
         SELECT `user_account_type` FROM `User`
         WHERE user_id = %s
         """,
-        (id,))
+        (user_id,))
     account_type = cursor.fetchone()[0]
     cursor.close()
     conn.close()
