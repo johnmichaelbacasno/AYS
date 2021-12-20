@@ -164,31 +164,31 @@
       <div class="container">
         <p class="lead">Featured Service Categories</p>
 
-          <div class="row">
+          <div class="row text-center">
             {% for service_category in featured_service_categories %}
             <div class="col-sm-2">
               <div class="row justify-content-center py-3">
                 <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Category">
               </div>
-              <p class="text-center">{{ service_category["service_category_name"] }}</p>
+              <a class="lead" href="/categories/{{ service_category["service_category_id"] }}" style="color: #5a5a5a;">{{ service_category["service_category_name"] }}</a>
             </div>
             {% endfor %}
           </div>
       </div>
     </div>
-    
+
     <div class="jumbotron">
       <div class="container">
           <p class="lead">Featured Service Providers</p>
 
-          <div class="row">
+          <div class="row text-center">
             {% for featured_service_provider in featured_service_providers %}
             <div class="col-sm-2">
               <div class="row justify-content-center py-3">
                 <img src="https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg" class="rounded-circle" height="75" width="75" alt="Service Category">
               </div>
-              <p class=" lead text-center">{{ featured_service_provider["user_first_name"] }} {{ featured_service_provider["user_middle_name"] }} {{ featured_service_provider["user_last_name"] }}</p>
-              <p class="text-center"><i>{{ featured_service_provider["user_id"] }}</i></p>
+              <p class="lead">{{ featured_service_provider["user_first_name"] }} {{ featured_service_provider["user_middle_name"] }} {{ featured_service_provider["user_last_name"] }}</p>
+              <i><a href="/users/{{ featured_service_provider["user_id"] }}" style="color: #5a5a5a;">{{ featured_service_provider["user_id"] }}</a></i>
             </div>
             {% endfor %}
           </div>
@@ -213,7 +213,7 @@
                         </div>
                         <div class="col-8 mx-2">
                           <h4>{{ service_post["service_post_title"] }}</h4>
-                          <p class="lead">{{ service_post["service_post_user_id"] }}</p>
+                          <a class="lead" href="/users/{{ service_post["service_post_user_id"] }}" style="color: #5a5a5a;">{{ service_post["service_post_user_id"] }}<a>
                         </div>
                       </div>
                       <p>
@@ -261,7 +261,7 @@
                         </div>
                         <div class="col">
                           <h3 class="modal-title">{{ service_post["service_post_title"] }}</h5>
-                          <p class="lead">{{ service_post["service_post_user_id"] }}</p>
+                          <a class="lead" href="/users/{{ service_post["service_post_user_id"] }}" style="color: #5a5a5a;">{{ service_post["service_post_user_id"] }}<a>
                           <p>
                           {% for star in range(5) %}
                             {% if star < (service_post["service_post_user_rating"] | int) %}
@@ -280,7 +280,7 @@
                           {% elif service_post["service_post_user_level"] == 3 %}
                             <span class="badge badge-info tags">Full</span>
                           {% endif %}
-    
+
                           {% if service_post["service_post_user_is_trusted"] %}
                             <span class="badge badge-info tags">Trusted</span>
                           {% endif %}
@@ -374,7 +374,7 @@
                     </div>
                     <div class="col-8 mx-2">
                       <h4>%TITLE%</h4>
-                      <p class="lead">%USER_ID%</p>
+                      <a class="lead" href="/users/%USER_ID%" style="color: #5a5a5a;">%USER_ID%<a>
                     </div>
                   </div>
                   <p>%USER_RATING%</p>
@@ -401,7 +401,7 @@
                     </div>
                     <div class="col">
                       <h3 class="modal-title" id="modal_view_%USER_ID%_label">%TITLE%</h5>
-                      <p class="lead">%USER_ID%</p>
+                        <a class="lead" href="/users/%USER_ID%" style="color: #5a5a5a;">%USER_ID%<a>
                       <p>%USER_RATING%</p>
                       <p>%USER_LEVEL% %USER_IS_TRUSTED%</p>
                     </div>

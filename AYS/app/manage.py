@@ -2,18 +2,14 @@ import pymysql
 
 from extensions import db
 
-def get_user_password(id):
+def user_id_exists(user_id):
     conn = db.connect()
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT `user_password` FROM `User`
-        WHERE user_id = %s
-        """,
-        (id,))
-    password = cursor.fetchone()[0]
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("SELECT * FROM `User` where `user_id`=%s", (user_id,))
+    user = cursor.fetchone()
     cursor.close()
     conn.close()
-    return password
+    return bool(user)
 
 def user_is_client(id):
     conn = db.connect()
@@ -40,6 +36,19 @@ def user_is_service_provider(id):
     cursor.close()
     conn.close()
     return account_type == 'SP'
+
+def get_user_password(user_id):
+    conn = db.connect()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT `user_password` FROM `User`
+        WHERE user_id = %s
+        """,
+        (user_id,))
+    password = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return password
 
 def all_clients():
     conn = db.connect()

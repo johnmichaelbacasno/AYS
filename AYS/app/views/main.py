@@ -17,6 +17,8 @@ def explore_services():
     
     user = session['username']
 
+    #user = session.get('user_id')
+
     if user is None:
         return redirect('/sign-in')
     elif user_is_client(user):
